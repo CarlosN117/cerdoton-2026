@@ -150,7 +150,7 @@ function monthlyJourney(p){
   return [0,1,2,3].map(i=>progressToGoal(p,values[Math.round(i*(values.length-1)/3)]));
 }
 function renderJourney(){
-  const w=960, h=440, left=82, end=685, photoX=765, cashX=860, top=56, bottom=336;
+  const w=1060, h=440, left=82, end=680, photoX=735, nameX=775, cashX=925, top=56, bottom=336;
   const x=i=>left+i*(end-left)/3;
   const y=value=>bottom-(value/100)*(bottom-top);
   const months=["Septiembre","Octubre","Noviembre","Diciembre"];
@@ -166,9 +166,9 @@ function renderJourney(){
     const photo=p.photo
       ? `<image href="${p.photo}" x="${photoX-22}" y="${photoY-22}" width="44" height="44" preserveAspectRatio="xMidYMid slice" clip-path="circle(22px at ${photoX}px ${photoY}px)"/>`
       : `<text class="photo-label" x="${photoX}" y="${photoY+4}" text-anchor="middle">${initials(p.name)}</text>`;
-    return `<g><polyline class="track" points="${points}" stroke="${color}"/><line x1="${end}" y1="${y(values[3])}" x2="${photoX-26}" y2="${photoY}" stroke="${color}" stroke-width="4" stroke-linecap="round"/><circle cx="${photoX}" cy="${photoY}" r="24" class="photo-ring" stroke="${color}"/><title>Foto de ${p.name} ${p.photo?"":"pendiente"}</title>${photo}<text class="name-label" x="${photoX}" y="${photoY-31}" text-anchor="middle">${p.name}</text><text class="score-label" x="${photoX}" y="${photoY+41}" text-anchor="middle">#${rank.get(p.id)} · ${score(p)} pts</text></g>`;
+    return `<g><polyline class="track" points="${points}" stroke="${color}"/><line x1="${end}" y1="${y(values[3])}" x2="${photoX-26}" y2="${photoY}" stroke="${color}" stroke-width="4" stroke-linecap="round"/><circle cx="${photoX}" cy="${photoY}" r="24" class="photo-ring" stroke="${color}"/><title>Foto de ${p.name} ${p.photo?"":"pendiente"}</title>${photo}<text class="name-label" x="${nameX}" y="${photoY-4}" text-anchor="start">${p.name}</text><text class="score-label" x="${nameX}" y="${photoY+14}" text-anchor="start">#${rank.get(p.id)} · ${score(p)} pts</text></g>`;
   }).join("");
-  journeyChart.innerHTML=`<svg class="journey-chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="Recorrido hacia la meta de cada participante entre septiembre y diciembre"><title>Seguimiento del Cerdotón</title>${grid}<text class="axis" x="${left}" y="24">Avance hacia la meta</text>${lines}${monthLabels}<g transform="translate(${cashX},145)"><rect class="cash" x="0" y="18" width="78" height="52" rx="6" transform="rotate(-8 39 44)"/><rect class="cash" x="4" y="10" width="78" height="52" rx="6" transform="rotate(4 43 36)"/><rect class="cash" x="8" y="2" width="78" height="52" rx="6"/><rect class="cash-band" x="38" y="2" width="18" height="52"/><text class="cash-label" x="47" y="35" text-anchor="middle">10K</text><text class="name-label" x="47" y="92" text-anchor="middle">PREMIO</text><text class="score-label" x="47" y="108" text-anchor="middle">$10,000 MXN</text></g></svg>`;
+  journeyChart.innerHTML=`<svg class="journey-chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="Recorrido hacia la meta de cada participante entre septiembre y diciembre"><title>Seguimiento del Cerdotón</title>${grid}<text class="axis" x="${left}" y="24">Avance hacia la meta</text><text class="axis" x="${nameX}" y="24">Participantes</text>${lines}${monthLabels}<g transform="translate(${cashX},145)"><rect class="cash" x="0" y="18" width="78" height="52" rx="6" transform="rotate(-8 39 44)"/><rect class="cash" x="4" y="10" width="78" height="52" rx="6" transform="rotate(4 43 36)"/><rect class="cash" x="8" y="2" width="78" height="52" rx="6"/><rect class="cash-band" x="38" y="2" width="18" height="52"/><text class="cash-label" x="47" y="35" text-anchor="middle">10K</text><text class="name-label" x="47" y="92" text-anchor="middle">PREMIO</text><text class="score-label" x="47" y="108" text-anchor="middle">$10,000 MXN</text></g></svg>`;
 }
 function render(){
   cards.innerHTML=people.map(p=>{
