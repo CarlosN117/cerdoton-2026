@@ -119,12 +119,12 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:#81909c;text-align:
 
 <script>
 const demo = [
- {id:1,name:"Brenda",photo:null,age:43,start:97,current:92.4,waistStart:108,waist:102,goal:85,health:88,objective:"Bajar grasa abdominal y mejorar condición",weeks:[97,96,95.2,94.1,93.3,92.4]},
- {id:2,name:"Iván",photo:null,age:36,start:84,current:79.6,waistStart:96,waist:90.5,goal:72,health:92,objective:"Mejorar resistencia y hábitos",weeks:[84,83.6,82.7,81.8,80.7,79.6]},
- {id:3,name:"Nancy",photo:null,age:39,start:112,current:104.8,waistStart:121,waist:113,goal:95,health:81,objective:"Reducir peso y presión de cintura",weeks:[112,110.7,109.8,108.2,106.1,104.8]},
+ {id:1,name:"Brenda",photo:"assets/profiles/brenda-cartoon.png",age:43,start:97,current:92.4,waistStart:108,waist:102,goal:85,health:88,objective:"Bajar grasa abdominal y mejorar condición",weeks:[97,96,95.2,94.1,93.3,92.4]},
+ {id:2,name:"Iván",photo:"assets/profiles/ivan-cartoon.png",age:36,start:84,current:79.6,waistStart:96,waist:90.5,goal:72,health:92,objective:"Mejorar resistencia y hábitos",weeks:[84,83.6,82.7,81.8,80.7,79.6]},
+ {id:3,name:"Nancy",photo:"assets/profiles/nancy-cartoon.png",age:39,start:112,current:104.8,waistStart:121,waist:113,goal:95,health:81,objective:"Reducir peso y presión de cintura",weeks:[112,110.7,109.8,108.2,106.1,104.8]},
  {id:4,name:"Sandra",photo:null,age:31,start:76,current:72.9,waistStart:89,waist:85.5,goal:67,health:95,objective:"Tonificar y mantener constancia",weeks:[76,75.5,74.9,74.2,73.6,72.9]}
 ];
-let people = JSON.parse(localStorage.getItem("cerdoton2026_v2")||"null") || demo;
+let people = JSON.parse(localStorage.getItem("cerdoton2026_v3")||"null") || demo;
 
 function pctWeight(p){return Math.max(0,(p.start-p.current)/p.start*100)}
 function pctWaist(p){return Math.max(0,(p.waistStart-p.waist)/p.waistStart*100)}
@@ -191,9 +191,9 @@ function updateParticipant(){
   const w=+weight.value, c=+waist.value, h=+health.value, g=+goal.value, wk=Math.max(1,+week.value||((p.weeks?.length||0)+1));
   if(w>0)p.current=w;if(c>0)p.waist=c;if(h>=0&&h<=100&&health.value!=="")p.health=h;if(g>0)p.goal=g;
   p.weeks=p.weeks||[p.start]; p.weeks[wk-1]=p.current; p.weeks=p.weeks.filter(v=>v!==undefined);
-  localStorage.setItem("cerdoton2026_v2",JSON.stringify(people)); render(); alert("Actualización guardada");
+  localStorage.setItem("cerdoton2026_v3",JSON.stringify(people)); render(); alert("Actualización guardada");
 }
-function resetDemo(){people=JSON.parse(JSON.stringify(demo));localStorage.setItem("cerdoton2026_v2",JSON.stringify(people));render()}
+function resetDemo(){people=JSON.parse(JSON.stringify(demo));localStorage.setItem("cerdoton2026_v3",JSON.stringify(people));render()}
 render();
 </script>
 </body>
