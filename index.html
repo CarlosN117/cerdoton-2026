@@ -102,20 +102,20 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:#81909c;text-align:
 
 <script>
 const demo = [
- {id:1,name:"Brenda",photo:"assets/profiles/brenda-cartoon.png",age:43,start:97,current:92.4,waistStart:108,waist:102,goal:85,health:88,objective:"Bajar grasa abdominal y mejorar condición",weeks:[97,96,95.2,94.1,93.3,92.4]},
+ {id:1,name:"Brenda",photo:"assets/profiles/brenda-cartoon.png",age:41,start:82.70,current:78.80,waistStart:null,waist:null,goal:null,health:null,objective:"Pendiente: medidas, salud y meta de peso",weeks:[82.70,81.15,78.80]},
  {id:2,name:"Iván",photo:"assets/profiles/ivan-cartoon.png",age:36,start:84,current:79.6,waistStart:96,waist:90.5,goal:72,health:92,objective:"Mejorar resistencia y hábitos",weeks:[84,83.6,82.7,81.8,80.7,79.6]},
  {id:3,name:"Nancy",photo:"assets/profiles/nancy-cartoon.png",age:39,start:112,current:104.8,waistStart:121,waist:113,goal:95,health:81,objective:"Reducir peso y presión de cintura",weeks:[112,110.7,109.8,108.2,106.1,104.8]},
  {id:4,name:"Sandra",photo:null,age:31,start:76,current:72.9,waistStart:89,waist:85.5,goal:67,health:95,objective:"Tonificar y mantener constancia",weeks:[76,75.5,74.9,74.2,73.6,72.9]}
 ];
 let people = demo;
 
-function pctWeight(p){return Math.max(0,(p.start-p.current)/p.start*100)}
-function pctWaist(p){return Math.max(0,(p.waistStart-p.waist)/p.waistStart*100)}
+function pctWeight(p){return Number.isFinite(p.start)&&Number.isFinite(p.current)&&p.start>0?Math.max(0,(p.start-p.current)/p.start*100):0}
+function pctWaist(p){return Number.isFinite(p.waistStart)&&Number.isFinite(p.waist)&&p.waistStart>0?Math.max(0,(p.waistStart-p.waist)/p.waistStart*100):0}
 function score(p){
   // Escalas competitivas moderadas: 10% peso perdido y 10% cintura reducida equivalen al máximo de su bloque.
   const w=Math.min(pctWeight(p)/10,1)*45;
   const m=Math.min(pctWaist(p)/10,1)*30;
-  const h=Math.max(0,Math.min(p.health,100))/100*25;
+  const h=Number.isFinite(p.health)?Math.max(0,Math.min(p.health,100))/100*25:0;
   return +(w+m+h).toFixed(1);
 }
 function initials(n){return n.split(" ").map(x=>x[0]).slice(0,2).join("").toUpperCase()}
@@ -152,12 +152,12 @@ function renderJourney(){
 }
 function render(){
   cards.innerHTML=people.map(p=>{
-    const loss=(p.start-p.current).toFixed(1), progress=Math.min(100,Math.max(0,(p.start-p.current)/(p.start-p.goal)*100||0));
+    const loss=(p.start-p.current).toFixed(1), hasGoal=Number.isFinite(p.goal)&&p.goal<p.start, progress=hasGoal?Math.min(100,Math.max(0,(p.start-p.current)/(p.start-p.goal)*100||0)):pctWeight(p), goalText=hasGoal?`${p.goal} kg`:"meta pendiente", waistText=Number.isFinite(p.waist)?`${p.waist} cm`:"Pendiente";
     return `<article class="card">
-      <div class="person">${profilePhoto(p)}<div><h3>${p.name}</h3><small>${p.age} años · objetivo: ${p.goal} kg</small></div></div>
-      <div class="kpis"><div class="kpi"><span>Peso</span><b>${p.current} kg</b></div><div class="kpi"><span>Perdidos</span><b>-${loss} kg</b></div><div class="kpi"><span>Cintura</span><b>${p.waist} cm</b></div><div class="kpi"><span>Índice</span><b>${score(p)}</b></div></div>
+      <div class="person">${profilePhoto(p)}<div><h3>${p.name}</h3><small>${p.age} años · objetivo: ${goalText}</small></div></div>
+      <div class="kpis"><div class="kpi"><span>Peso</span><b>${p.current} kg</b></div><div class="kpi"><span>Perdidos</span><b>-${loss} kg</b></div><div class="kpi"><span>Cintura</span><b>${waistText}</b></div><div class="kpi"><span>Índice</span><b>${score(p)}</b></div></div>
       <div style="font-size:13px;color:#aeb9c1;margin-bottom:12px">${p.objective}</div>
-      <div class="progress"><i style="width:${progress}%"></i></div><div class="smallrow"><span>${progress.toFixed(0)}% hacia la meta</span><span>${p.start} → ${p.goal} kg</span></div>
+      <div class="progress"><i style="width:${progress}%"></i></div><div class="smallrow"><span>${hasGoal?`${progress.toFixed(0)}% hacia la meta`:`${progress.toFixed(1)}% de peso perdido`}</span><span>${hasGoal?`${p.start} → ${p.goal} kg`:"Meta pendiente"}</span></div>
     </article>`
   }).join("");
   mParticipants.textContent=people.length;
