@@ -93,25 +93,8 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:#81909c;text-align:
 </section>
 
 <section id="seguimiento">
-  <div class="section-head"><div><h2>Seguimiento en “tiempo real”</h2><p>La foto se mueve a la derecha cuando mejora el Índice Cerdotón; si no hay avance de peso o medidas, se mantiene a la izquierda.</p></div></div>
-  <div class="live-board"><div class="live-head"><h3>Recorrido hacia la meta</h3><span class="live-pill">● ACTUALIZADO CON CADA REGISTRO</span></div><div class="journey-scroll"><div id="journeyChart" aria-live="polite"></div></div></div>
-</section>
-
-<section id="admin">
-  <div class="section-head"><div><h2>Actualizar semana</h2><p>Los cambios se guardan únicamente en este navegador mediante almacenamiento local.</p></div></div>
-  <div class="admin">
-    <div class="formgrid">
-      <select id="pSelect"></select>
-      <input id="week" type="number" min="1" placeholder="Semana"/>
-      <input id="weight" type="number" step="0.1" placeholder="Peso actual (kg)"/>
-      <input id="waist" type="number" step="0.1" placeholder="Cintura actual (cm)"/>
-      <input id="health" type="number" min="0" max="100" placeholder="Salud/constancia (0-100)"/>
-      <input id="goal" type="number" step="0.1" placeholder="Meta de peso (kg)"/>
-      <button class="btn primary" onclick="updateParticipant()">Guardar actualización</button>
-      <button class="btn secondary" onclick="resetDemo()">Restaurar demo</button>
-    </div>
-    <div class="notice">Para un uso real con varios usuarios conviene conectar posteriormente una base de datos y autenticación.</div>
-  </div>
+  <div class="section-head"><div><h2>Seguimiento en “tiempo real”</h2><p>Corte disponible: final de septiembre. La foto se mueve a la derecha cuando mejora el Índice Cerdotón; los próximos meses se agregarán con los datos que me compartas.</p></div></div>
+  <div class="live-board"><div class="live-head"><h3>Recorrido de septiembre</h3><span class="live-pill">● CORTE: 30 DE SEPTIEMBRE</span></div><div class="journey-scroll"><div id="journeyChart" aria-live="polite"></div></div></div>
 </section>
 </main>
 
@@ -124,7 +107,7 @@ const demo = [
  {id:3,name:"Nancy",photo:"assets/profiles/nancy-cartoon.png",age:39,start:112,current:104.8,waistStart:121,waist:113,goal:95,health:81,objective:"Reducir peso y presión de cintura",weeks:[112,110.7,109.8,108.2,106.1,104.8]},
  {id:4,name:"Sandra",photo:null,age:31,start:76,current:72.9,waistStart:89,waist:85.5,goal:67,health:95,objective:"Tonificar y mantener constancia",weeks:[76,75.5,74.9,74.2,73.6,72.9]}
 ];
-let people = JSON.parse(localStorage.getItem("cerdoton2026_v3")||"null") || demo;
+let people = demo;
 
 function pctWeight(p){return Math.max(0,(p.start-p.current)/p.start*100)}
 function pctWaist(p){return Math.max(0,(p.waistStart-p.waist)/p.waistStart*100)}
@@ -146,16 +129,14 @@ function progressToGoal(p,weight){
   return Math.min(100,Math.max(0,(p.start-weight)/(p.start-p.goal)*100||0));
 }
 function monthlyJourney(p){
-  const values=p.weeks?.length?p.weeks:[p.start,p.current];
-  return [0,1,2,3].map(i=>progressToGoal(p,values[Math.round(i*(values.length-1)/3)]));
+  return [0,progressToGoal(p,p.current)];
 }
 function renderJourney(){
   const w=1060, h=440, left=82, end=780, cashX=925, top=56, bottom=336;
   const xForProgress=value=>left+(Math.min(100,Math.max(0,value))/100)*(end-left);
-  const months=["Septiembre","Octubre","Noviembre","Diciembre"];
   const rows=people.map((p,i)=>({p,i,color:journeyColors[i%journeyColors.length],values:monthlyJourney(p)}));
   const rank=new Map([...people].sort((a,b)=>score(b)-score(a)).map((p,i)=>[p.id,i+1]));
-  const monthLabels=months.map((month,i)=>`<text class="month" x="${left+i*(end-left)/3}" y="390" text-anchor="middle">${month}</text>`).join("");
+  const monthLabels=`<text class="month" x="${(left+end)/2}" y="390" text-anchor="middle">Septiembre · corte al 30 de septiembre</text>`;
   const lines=rows.map(row=>{
     const {p,i,color,values}=row;
     const laneY=top+54+i*72;
@@ -182,17 +163,8 @@ function render(){
   mParticipants.textContent=people.length;
   mLost.textContent=people.reduce((s,p)=>s+(p.start-p.current),0).toFixed(1)+" kg";
   mCm.textContent=people.reduce((s,p)=>s+(p.waistStart-p.waist),0).toFixed(1)+" cm";
-  pSelect.innerHTML=people.map(p=>`<option value="${p.id}">${p.name}</option>`).join("");
   renderJourney();
 }
-function updateParticipant(){
-  const p=people.find(x=>x.id==pSelect.value); if(!p)return;
-  const w=+weight.value, c=+waist.value, h=+health.value, g=+goal.value, wk=Math.max(1,+week.value||((p.weeks?.length||0)+1));
-  if(w>0)p.current=w;if(c>0)p.waist=c;if(h>=0&&h<=100&&health.value!=="")p.health=h;if(g>0)p.goal=g;
-  p.weeks=p.weeks||[p.start]; p.weeks[wk-1]=p.current; p.weeks=p.weeks.filter(v=>v!==undefined);
-  localStorage.setItem("cerdoton2026_v3",JSON.stringify(people)); render(); alert("Actualización guardada");
-}
-function resetDemo(){people=JSON.parse(JSON.stringify(demo));localStorage.setItem("cerdoton2026_v3",JSON.stringify(people));render()}
 render();
 </script>
 </body>
