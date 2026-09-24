@@ -41,27 +41,30 @@ th,td{padding:14px;text-align:left;border-bottom:1px solid var(--line)}th{font-s
 .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.info{background:#151c21;border:1px solid var(--line);border-radius:16px;padding:18px}.info h3{margin-top:0}.info p{color:var(--muted);line-height:1.55}
 .admin{background:#131a1f;border:1px solid #2a3843;border-radius:18px;padding:20px}.formgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.formgrid input,.formgrid select{width:100%;background:#0e1418;color:white;border:1px solid #33414d;border-radius:10px;padding:11px}
 .chart{display:flex;align-items:end;gap:8px;height:170px;padding-top:18px}.bar{flex:1;min-width:20px;background:linear-gradient(180deg,var(--green),#197346);border-radius:7px 7px 2px 2px;position:relative}.bar span{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-size:11px;color:#d4dde3;margin-bottom:5px}.bar small{position:absolute;top:100%;left:50%;transform:translateX(-50%);font-size:10px;color:#7f8d98;margin-top:5px}
+.explanation{background:linear-gradient(135deg,#162019,#131a1f);border:1px solid #2e4a39;border-radius:20px;padding:24px}.explanation strong{color:#a4ef72}.explanation .period{display:inline-block;margin-top:12px;color:#d6e2dd}
+.prize-section{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;background:linear-gradient(135deg,#2a2411,#171d22);border:1px solid #6a5b1c;border-radius:24px;padding:28px}.prize-section h2{margin:0 0 8px;font-size:clamp(34px,5vw,54px);color:var(--yellow)}.prize-section p{margin:0;color:#d6d3bd}.money-stack{position:relative;width:150px;height:116px}.bill{position:absolute;right:0;width:130px;height:72px;border-radius:10px;background:linear-gradient(135deg,#4dc68a,#1c8157);border:2px solid #8bf0b9;color:#073d2a;font-weight:900;display:grid;place-items:center;font-size:24px;box-shadow:0 8px 20px rgba(0,0,0,.22)}.bill:before{content:"MXN";position:absolute;left:12px;top:10px;font-size:10px;letter-spacing:.14em}.bill:nth-child(1){top:0;right:14px;transform:rotate(-8deg)}.bill:nth-child(2){top:18px;right:7px;transform:rotate(3deg)}.bill:nth-child(3){top:36px;right:0;transform:rotate(-2deg)}
+.live-board{background:#10161b;border:1px solid #30404b;border-radius:24px;padding:20px;overflow:hidden}.live-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px}.live-head h3{margin:0}.live-pill{color:#a4ef72;background:#13261d;border:1px solid #31513f;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800;white-space:nowrap}.journey-chart{width:100%;min-width:600px}.journey-scroll{overflow-x:auto;padding-bottom:4px}.journey-chart .grid{stroke:#2a343e;stroke-width:1}.journey-chart .track{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}.journey-chart .month{fill:#aeb9c1;font-size:14px}.journey-chart .axis{fill:#7f8d98;font-size:12px}.journey-chart .photo-ring{fill:#11171c;stroke-width:4}.journey-chart .photo-label{fill:#f4f7f9;font-size:11px;font-weight:800}.journey-chart .name-label{fill:#f4f7f9;font-size:13px;font-weight:800}.journey-chart .score-label{fill:#aeb9c1;font-size:11px}.journey-chart .cash{fill:#35d07f}.journey-chart .cash-band{fill:#c3f4a0}.journey-chart .cash-label{fill:#073d2a;font-size:19px;font-weight:900}
 footer{border-top:1px solid var(--line);padding:32px 0;color:#81909c;text-align:center}
 .notice{color:#8697a3;font-size:12px;margin-top:10px}
 @media(max-width:900px){.hero{grid-template-columns:1fr}.cards,.info-grid{grid-template-columns:1fr 1fr}.formgrid{grid-template-columns:1fr 1fr}.navlinks{display:none}}
-@media(max-width:620px){.cards,.info-grid,.podium{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.hero{padding-top:38px}h1{letter-spacing:-1.5px}.metric-row{grid-template-columns:1fr}}
+@media(max-width:620px){.cards,.info-grid,.podium{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.hero{padding-top:38px}h1{letter-spacing:-1.5px}.metric-row{grid-template-columns:1fr}.prize-section{grid-template-columns:1fr}.money-stack{margin:auto}}
 </style>
 </head>
 <body>
 <header>
   <div class="container"><nav>
     <div class="brand">🐷 CERDO<span>TÓN 2026</span></div>
-    <div class="navlinks"><a href="#inicio">Datos de inicio</a><a href="#concursantes">Concursantes</a><a href="#ranking">Clasificación</a><a href="#progreso">Progreso</a><a href="#reglas">Reglas</a><a href="#admin">Actualizar</a></div>
+    <div class="navlinks"><a href="#cerdoton">Cerdotón</a><a href="#explicacion">Explicación</a><a href="#participantes">Participantes</a><a href="#premio">Premio</a><a href="#seguimiento">Seguimiento</a></div>
   </nav></div>
 </header>
 
 <main class="container">
-<section class="hero">
+<section class="hero" id="cerdoton">
   <div>
     <div class="badge">🏆 Competencia saludable · 1 de septiembre al 31 de diciembre de 2026</div>
     <h1>CERDOTÓN<br>2026</h1>
     <p>Menos kilos. Más salud. Un solo campeón. El ranking combina porcentaje de peso perdido, reducción de medidas y constancia saludable para premiar progreso integral, no solo bajar kilos.</p>
-    <div class="cta"><a class="btn primary" href="#ranking" style="text-decoration:none">Ver clasificación</a><a class="btn secondary" href="#concursantes" style="text-decoration:none">Conocer concursantes</a></div>
+    <div class="cta"><a class="btn primary" href="#seguimiento" style="text-decoration:none">Ver seguimiento</a><a class="btn secondary" href="#participantes" style="text-decoration:none">Conocer participantes</a></div>
     <div class="prize"><span>🏆</span><div><small>PREMIO AL GANADOR</small><b>$10,000.00 MXN</b></div></div>
   </div>
   <div class="hero-card">
@@ -75,34 +78,23 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:#81909c;text-align:
   </div>
 </section>
 
-<section id="inicio">
-  <div class="section-head"><div><h2>Datos de inicio</h2><p>Registro inicial del 1 de septiembre de 2026. Estos datos serán la base para calcular el progreso hasta el 31 de diciembre.</p></div></div>
-  <div style="overflow:auto"><table><thead><tr><th>Concursante</th><th>Edad</th><th>Peso inicial</th><th>Cintura inicial</th><th>Meta de peso</th><th>Objetivo principal</th></tr></thead><tbody id="startBody"></tbody></table></div>
+<section id="explicacion">
+  <div class="section-head"><div><h2>Explicación del Cerdotón</h2><p>Una competencia divertida que pone la salud y la constancia primero.</p></div></div>
+  <div class="explanation"><strong>¿Cómo se decide quién va ganando?</strong><p>El Índice Cerdotón combina 45% de porcentaje de peso perdido, 30% de reducción de medidas y 25% de salud y constancia. Así se reconoce el progreso integral, no las pérdidas extremas.</p><span class="period">📅 Periodo oficial: <b>1 de septiembre al 31 de diciembre de 2026</b></span></div>
 </section>
 
-<section id="concursantes">
-  <div class="section-head"><div><h2>Concursantes</h2><p>Datos de demostración. Puedes actualizarlos semanalmente desde el panel de actualización.</p></div></div>
+<section id="participantes">
+  <div class="section-head"><div><h2>Participantes</h2><p>Datos iniciales registrados el 1 de septiembre. Las fotos se agregarán cuando estén disponibles.</p></div></div>
   <div class="cards" id="cards"></div>
 </section>
 
-<section id="ranking">
-  <div class="section-head"><div><h2>Clasificación general</h2><p>Índice Cerdotón: 45% peso, 30% medidas, 25% salud y constancia.</p></div></div>
-  <div class="podium" id="podium"></div>
-  <div style="overflow:auto"><table><thead><tr><th>Lugar</th><th>Concursante</th><th>Peso perdido</th><th>Reducción cintura</th><th>Salud</th><th>Puntaje</th></tr></thead><tbody id="rankingBody"></tbody></table></div>
+<section id="premio">
+  <div class="prize-section"><div><div class="badge">🏆 Reconocimiento final</div><h2>Premio al ganador</h2><p>La persona que encabece el Índice Cerdotón al cierre de la competencia recibirá <b>$10,000.00 MXN</b>.</p></div><div class="money-stack" aria-label="Fajo de billetes por diez mil pesos mexicanos"><div class="bill">$10K</div><div class="bill">$10K</div><div class="bill">$10K</div></div></div>
 </section>
 
-<section id="progreso">
-  <div class="section-head"><div><h2>Progreso semanal</h2><p>Selecciona un concursante para revisar su evolución de peso.</p></div><select id="chartSelect" class="btn secondary"></select></div>
-  <div class="card"><div class="chart" id="chart"></div></div>
-</section>
-
-<section id="reglas">
-  <div class="section-head"><div><h2>Cómo se gana</h2><p>La competencia premia el progreso sostenible. El primer lugar recibirá un premio de $10,000.00 MXN.</p></div></div>
-  <div class="info-grid">
-    <div class="info"><h3>⚖️ 45% Peso</h3><p>Se toma el porcentaje de peso perdido respecto al peso inicial, no solo los kilos absolutos.</p></div>
-    <div class="info"><h3>📏 30% Medidas</h3><p>Se considera principalmente la reducción porcentual de cintura y otras medidas configuradas.</p></div>
-    <div class="info"><h3>❤️ 25% Salud</h3><p>Puntaje semanal de hábitos, constancia, actividad física y seguimiento responsable. Evita premiar pérdidas extremas.</p></div>
-  </div>
+<section id="seguimiento">
+  <div class="section-head"><div><h2>Seguimiento en “tiempo real”</h2><p>El recorrido cambia con cada actualización registrada. Cada línea representa a una persona; el círculo al final está reservado para su foto.</p></div></div>
+  <div class="live-board"><div class="live-head"><h3>Recorrido hacia la meta</h3><span class="live-pill">● ACTUALIZADO CON CADA REGISTRO</span></div><div class="journey-scroll"><div id="journeyChart" aria-live="polite"></div></div></div>
 </section>
 
 <section id="admin">
@@ -149,9 +141,36 @@ function profilePhoto(p){
     ? `<div class="avatar"><img src="${p.photo}" alt="Foto de ${p.name}"></div>`
     : `<div class="avatar placeholder" aria-label="Espacio reservado para la foto de ${p.name}"><span>📷</span><small>Foto pendiente</small></div>`;
 }
+const journeyColors=["#35d07f","#f3c84b","#ff8f3d","#77a8ff"];
+function progressToGoal(p,weight){
+  return Math.min(100,Math.max(0,(p.start-weight)/(p.start-p.goal)*100||0));
+}
+function monthlyJourney(p){
+  const values=p.weeks?.length?p.weeks:[p.start,p.current];
+  return [0,1,2,3].map(i=>progressToGoal(p,values[Math.round(i*(values.length-1)/3)]));
+}
+function renderJourney(){
+  const w=960, h=440, left=82, end=685, photoX=765, cashX=860, top=56, bottom=336;
+  const x=i=>left+i*(end-left)/3;
+  const y=value=>bottom-(value/100)*(bottom-top);
+  const months=["Septiembre","Octubre","Noviembre","Diciembre"];
+  const rows=people.map((p,i)=>({p,i,color:journeyColors[i%journeyColors.length],values:monthlyJourney(p)}));
+  const ordered=[...rows].sort((a,b)=>y(a.values[3])-y(b.values[3]));
+  ordered.forEach((row,index)=>{row.photoY=top+42+index*((bottom-top-84)/Math.max(1,ordered.length-1))});
+  const rank=new Map([...people].sort((a,b)=>score(b)-score(a)).map((p,i)=>[p.id,i+1]));
+  const grid=[0,25,50,75,100].map(value=>`<g><line class="grid" x1="${left}" y1="${y(value)}" x2="${end}" y2="${y(value)}"/><text class="axis" x="12" y="${y(value)+4}">${value}%</text></g>`).join("");
+  const monthLabels=months.map((month,i)=>`<text class="month" x="${x(i)}" y="390" text-anchor="middle">${month}</text>`).join("");
+  const lines=rows.map(row=>{
+    const {p,i,color,values,photoY}=row;
+    const points=values.map((value,index)=>`${x(index)},${y(value)}`).join(" ");
+    const photo=p.photo
+      ? `<image href="${p.photo}" x="${photoX-22}" y="${photoY-22}" width="44" height="44" preserveAspectRatio="xMidYMid slice" clip-path="circle(22px at ${photoX}px ${photoY}px)"/>`
+      : `<text class="photo-label" x="${photoX}" y="${photoY+4}" text-anchor="middle">${initials(p.name)}</text>`;
+    return `<g><polyline class="track" points="${points}" stroke="${color}"/><line x1="${end}" y1="${y(values[3])}" x2="${photoX-26}" y2="${photoY}" stroke="${color}" stroke-width="4" stroke-linecap="round"/><circle cx="${photoX}" cy="${photoY}" r="24" class="photo-ring" stroke="${color}"/><title>Foto de ${p.name} ${p.photo?"":"pendiente"}</title>${photo}<text class="name-label" x="${photoX}" y="${photoY-31}" text-anchor="middle">${p.name}</text><text class="score-label" x="${photoX}" y="${photoY+41}" text-anchor="middle">#${rank.get(p.id)} · ${score(p)} pts</text></g>`;
+  }).join("");
+  journeyChart.innerHTML=`<svg class="journey-chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="Recorrido hacia la meta de cada participante entre septiembre y diciembre"><title>Seguimiento del Cerdotón</title>${grid}<text class="axis" x="${left}" y="24">Avance hacia la meta</text>${lines}${monthLabels}<g transform="translate(${cashX},145)"><rect class="cash" x="0" y="18" width="78" height="52" rx="6" transform="rotate(-8 39 44)"/><rect class="cash" x="4" y="10" width="78" height="52" rx="6" transform="rotate(4 43 36)"/><rect class="cash" x="8" y="2" width="78" height="52" rx="6"/><rect class="cash-band" x="38" y="2" width="18" height="52"/><text class="cash-label" x="47" y="35" text-anchor="middle">10K</text><text class="name-label" x="47" y="92" text-anchor="middle">PREMIO</text><text class="score-label" x="47" y="108" text-anchor="middle">$10,000 MXN</text></g></svg>`;
+}
 function render(){
-  const sorted=[...people].sort((a,b)=>score(b)-score(a));
-  startBody.innerHTML=people.map(p=>`<tr><td><b>${p.name}</b></td><td>${p.age} años</td><td>${p.start} kg</td><td>${p.waistStart} cm</td><td>${p.goal} kg</td><td>${p.objective}</td></tr>`).join("");
   cards.innerHTML=people.map(p=>{
     const loss=(p.start-p.current).toFixed(1), progress=Math.min(100,Math.max(0,(p.start-p.current)/(p.start-p.goal)*100||0));
     return `<article class="card">
@@ -161,20 +180,12 @@ function render(){
       <div class="progress"><i style="width:${progress}%"></i></div><div class="smallrow"><span>${progress.toFixed(0)}% hacia la meta</span><span>${p.start} → ${p.goal} kg</span></div>
     </article>`
   }).join("");
-  rankingBody.innerHTML=sorted.map((p,i)=>`<tr><td class="rank">${["🥇","🥈","🥉"][i]||"#"+(i+1)}</td><td><b>${p.name}</b><br><small style="color:#8fa0ac">${p.age} años</small></td><td>-${(p.start-p.current).toFixed(1)} kg (${pctWeight(p).toFixed(1)}%)</td><td>-${(p.waistStart-p.waist).toFixed(1)} cm (${pctWaist(p).toFixed(1)}%)</td><td>${p.health}/100</td><td class="score">${score(p)}</td></tr>`).join("");
-  podium.innerHTML=sorted.slice(0,3).map((p,i)=>`<div class="pod ${i===0?"first":""}"><div class="place">${["🥇","🥈","🥉"][i]}</div><b>${p.name}</b><div style="color:#96a5b1;margin-top:6px">Índice ${score(p)}</div></div>`).join("");
   mParticipants.textContent=people.length;
   mLost.textContent=people.reduce((s,p)=>s+(p.start-p.current),0).toFixed(1)+" kg";
   mCm.textContent=people.reduce((s,p)=>s+(p.waistStart-p.waist),0).toFixed(1)+" cm";
   pSelect.innerHTML=people.map(p=>`<option value="${p.id}">${p.name}</option>`).join("");
-  chartSelect.innerHTML=people.map(p=>`<option value="${p.id}">${p.name}</option>`).join("");
-  renderChart();
+  renderJourney();
 }
-function renderChart(){
-  const p=people.find(x=>x.id==chartSelect.value)||people[0], vals=p.weeks||[p.start,p.current], max=Math.max(...vals), min=Math.min(...vals)-2;
-  chart.innerHTML=vals.map((v,i)=>{const h=35+((v-min)/(max-min||1))*120;return `<div class="bar" style="height:${h}px"><span>${v}</span><small>S${i+1}</small></div>`}).join("");
-}
-chartSelect?.addEventListener("change",renderChart);
 function updateParticipant(){
   const p=people.find(x=>x.id==pSelect.value); if(!p)return;
   const w=+weight.value, c=+waist.value, h=+health.value, g=+goal.value, wk=Math.max(1,+week.value||((p.weeks?.length||0)+1));
