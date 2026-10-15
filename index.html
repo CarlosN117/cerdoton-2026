@@ -31,6 +31,7 @@ section{padding:42px 0}.section-head{display:flex;justify-content:space-between;
 .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;transition:.2s}.card:hover{transform:translateY(-3px);border-color:#3b4b58}
 .person{display:flex;gap:14px;align-items:center}.avatar{width:82px;height:82px;flex:0 0 82px;border-radius:16px;background:linear-gradient(135deg,#2c3945,#10161b);display:grid;place-items:center;border:1px dashed #526270;overflow:hidden}.avatar.placeholder{align-content:center;gap:3px;color:#b7c3cc}.avatar.placeholder span{font-size:25px;line-height:1}.avatar.placeholder small{font-size:11px;color:#9eacb8}.avatar img{width:100%;height:100%;object-fit:cover}.person h3{margin:0 0 4px}.person small{color:var(--muted)}
 .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}.kpi{background:#10161b;border-radius:12px;padding:10px;border:1px solid #25313a}.kpi span{display:block;color:var(--muted);font-size:12px}.kpi b{font-size:19px}
+.measurements{display:flex;flex-wrap:wrap;gap:7px;margin:-3px 0 13px}.measurement{background:#10161b;border:1px solid #25313a;border-radius:999px;padding:6px 9px;color:#cbd7df;font-size:12px}.measurement b{color:#f4f7f9}
 .progress{height:9px;border-radius:999px;background:#25303a;overflow:hidden}.progress>i{display:block;height:100%;background:linear-gradient(90deg,var(--green),#a4ef72)}
 .smallrow{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:6px}
 table{width:100%;border-collapse:collapse;background:var(--panel);border-radius:18px;overflow:hidden;border:1px solid var(--line)}
@@ -105,7 +106,7 @@ const demo = [
  {id:1,name:"Brenda",photo:"assets/profiles/brenda-cartoon.png",age:41,start:83.6,current:76.7,fatStart:41.4,fatCurrent:37.6,goal:null,objective:"Pendiente: medidas, salud y meta de peso",weeks:[83.6,76.7]},
  {id:2,name:"Iván",photo:"assets/profiles/ivan-cartoon.png",age:null,start:88.4,current:84.8,fatStart:31.6,fatCurrent:30.4,goal:null,objective:"Pendiente: edad, medidas, salud y meta de peso",weeks:[88.4,84.8]},
  {id:3,name:"Jona",photo:null,age:null,start:88.7,current:85.2,fatStart:28.8,fatCurrent:27.5,goal:null,objective:"Pendiente: edad, medidas, salud y meta de peso",weeks:[88.7,85.2]},
- {id:4,name:"Sandra",photo:null,age:null,start:79.8,current:75.6,fatStart:43.7,fatCurrent:42.2,goal:null,objective:"Pendiente: edad, medidas, salud y meta de peso",weeks:[79.8,75.6]}
+ {id:4,name:"Sandra",photo:null,age:35,height:164,measurements:{chest:100,waist:90,hip:110},start:79.8,current:75.6,fatStart:43.7,fatCurrent:42.2,goal:null,objective:"Pendiente: salud y meta de peso",weeks:[79.8,75.6]}
 ];
 let people = demo;
 
@@ -151,11 +152,12 @@ function renderJourney(){
 }
 function render(){
   cards.innerHTML=people.map(p=>{
-    const loss=(p.start-p.current).toFixed(1), fatLoss=fatPointsLost(p).toFixed(1), ageText=Number.isFinite(p.age)?`${p.age} años`:"edad pendiente", hasGoal=Number.isFinite(p.goal)&&p.goal<p.start, progress=hasGoal?Math.min(100,Math.max(0,(p.start-p.current)/(p.start-p.goal)*100||0)):pctWeight(p), goalText=hasGoal?`${p.goal} kg`:"meta pendiente";
+    const loss=(p.start-p.current).toFixed(1), fatLoss=fatPointsLost(p).toFixed(1), ageText=Number.isFinite(p.age)?`${p.age} años`:"edad pendiente", heightText=Number.isFinite(p.height)?` · ${p.height} cm`:"", measurements=p.measurements?`<div class="measurements" aria-label="Medidas de ${p.name}"><span class="measurement">Pecho: <b>${p.measurements.chest} cm</b></span><span class="measurement">Cintura: <b>${p.measurements.waist} cm</b></span><span class="measurement">Cadera: <b>${p.measurements.hip} cm</b></span></div>`:"", hasGoal=Number.isFinite(p.goal)&&p.goal<p.start, progress=hasGoal?Math.min(100,Math.max(0,(p.start-p.current)/(p.start-p.goal)*100||0)):pctWeight(p), goalText=hasGoal?`${p.goal} kg`:"meta pendiente";
     return `<article class="card">
-      <div class="person">${profilePhoto(p)}<div><h3>${p.name}</h3><small>${ageText} · objetivo: ${goalText}</small></div></div>
+      <div class="person">${profilePhoto(p)}<div><h3>${p.name}</h3><small>${ageText}${heightText} · objetivo: ${goalText}</small></div></div>
       <div class="kpis"><div class="kpi"><span>Peso</span><b>${p.current} kg</b></div><div class="kpi"><span>Perdidos</span><b>-${loss} kg</b></div><div class="kpi"><span>Grasa corporal</span><b>-${fatLoss} pts</b></div><div class="kpi"><span>Índice</span><b>${score(p)}</b></div></div>
       <div style="font-size:13px;color:#aeb9c1;margin-bottom:12px">${p.objective}</div>
+      ${measurements}
       <div class="progress"><i style="width:${progress}%"></i></div><div class="smallrow"><span>${hasGoal?`${progress.toFixed(0)}% hacia la meta`:`${progress.toFixed(1)}% de peso perdido`}</span><span>${hasGoal?`${p.start} → ${p.goal} kg`:"Meta pendiente"}</span></div>
     </article>`
   }).join("");
