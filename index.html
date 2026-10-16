@@ -145,7 +145,7 @@ function renderJourney(){
     const points=values.map(value=>`${xForProgress(value)},${laneY}`).concat(`${markerX},${laneY}`).join(" ");
     const trackPhoto=p.trackPhoto||p.photo;
     const photo=trackPhoto
-      ? `<image href="${trackPhoto}" x="${markerX-24}" y="${laneY-24}" width="48" height="48" preserveAspectRatio="xMidYMid meet" clip-path="circle(22px at ${markerX}px ${laneY}px)"/>`
+      ? `<image href="${trackPhoto}" x="${markerX-24}" y="${laneY-24}" width="48" height="48" preserveAspectRatio="xMidYMid meet" clip-path="circle(50% at 50% 50%)"/>`
       : `<text class="photo-label" x="${markerX}" y="${laneY+4}" text-anchor="middle">${initials(p.name)}</text>`;
     return `<g><line class="grid" x1="${left}" y1="${laneY}" x2="${end}" y2="${laneY}"/><polyline class="track" points="${points}" stroke="${color}"/><circle cx="${markerX}" cy="${laneY}" r="24" class="photo-ring" stroke="${color}"/><title>Foto de ${p.name} ${trackPhoto?"":"pendiente"}</title>${photo}<text class="name-label" x="${nameX}" y="${laneY-4}" text-anchor="start">${p.name}</text><text class="score-label" x="${nameX}" y="${laneY+14}" text-anchor="start">#${rank.get(p.id)} · ${score(p)} pts</text></g>`;
   }).join("");
